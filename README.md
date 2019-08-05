@@ -13,4 +13,4 @@ CREDITS/LICENSE INFORMATION: This software is licensed under the GNU General Pub
 
 This software makes use of the Unfolding Maps Library developed at the Interaction Design Lab, FH Potsdam, the HCI group, KU Leuven, and MIT Senseable City Labs. Copyright (C) 2015 Till Nagel, and contributors. See http://unfoldingmaps.org/contact.html 
 
-IGS software was originally developed by Ben Rydal Shapiro (https://benrydal.com) at Vanderbilt University as part of his dissertation titled Interaction Geography & the Learning Sciences. Copyright (C) 2018 Ben Rydal Shapiro, and contributers. To reference or read more about this work please see: https://etd.library.vanderbilt.edu/available/etd-03212018-140140/unrestricted/Shapiro_Dissertation.pdf
+IGS software was originally developed by Ben Rydal Shapiro at Vanderbilt University as part of his dissertation titled Interaction Geography & the Learning Sciences. Copyright (C) 2018 Ben Rydal Shapiro, and contributers. To reference or read more about this work please see: https://etd.library.vanderbilt.edu/available/etd-03212018-140140/unrestricted/Shapiro_Dissertation.pdf
