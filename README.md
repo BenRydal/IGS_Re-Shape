@@ -7,7 +7,9 @@ TO RUN THIS PROGRAM:
 
 2) Place the folder titled "Unfolding" included in this repository within your processing "libraries" folder (located within the Processing folder on your computer). Unfolding is a wonderful mapping Library developed by Till Nagel & contributers (see credits below).
 
-3) Visit this link to understand how to collect and/or properly format your data:
+3) Visit this link to understand how to collect and properly format data: https://www.benrydal.com/re-shape
+
+4)Open any file in the IGS_ReShape folder in Processing
 
 CREDITS/LICENSE INFORMATION: This software is licensed under the GNU General Public License Version 2.0. See the GNU General Public License included with this software for more details. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
