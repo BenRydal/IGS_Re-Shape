@@ -7,7 +7,7 @@ TO RUN THIS PROGRAM:
 
 2) Place the folder titled "Unfolding" included in this repository within your processing "libraries" folder (located within the Processing folder on your computer). Unfolding is a wonderful mapping Library developed by Till Nagel & contributers (see credits below).
 
-3) Visit this link to understand how to collect and properly format data: https://www.benrydal.com/re-shape
+3) Visit this link to understand how to collect, format, and load data into this program: https://www.benrydal.com/re-shape
 
 4) Open and run any file in the IGS_ReShape folder in this repository in Processing
 
