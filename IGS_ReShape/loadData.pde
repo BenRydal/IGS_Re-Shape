@@ -120,10 +120,10 @@ Path processTable(Table GPS, String fileName, int student) {
     // Tests to make sure columns labeled correctly
     try {
       // get values
+      time = tryParse(position.getString(time_Column));
       lat = position.getFloat(lat_Column);
       lng = position.getFloat(lng_Column);
       alt = position.getFloat(alt_Column);
-      time = tryParse(position.getString(time_Column));
     } 
     catch (Exception e) {
       println(fileName + "was not loaded. Please make sure column names are correct");

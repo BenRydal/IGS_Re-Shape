@@ -47,7 +47,6 @@ float timelineStart, timelineEnd, timelineLength, tickHeight; // pixel values fo
 float currPixelTimeMin = 0, currPixelTimeMax = 0; // user/GUI adjustable pixel values for timeline
 
 // ------ GUI ------
-// String infoMsg= "INTERACTION GEOGRAPHY SLICER (IGS):\nThe IGS visualizes movement over space and space-time in two, three, an four dimensions. On the left movement is shown over a digital map while the right extends movement over time preserving the vertical dimension as shown on the map with the Y-axis. Below are key codes for further interactive possibilities. \n \n KEY CODES: \n ('s') Show/hide all paths\n ('c') Change individual movement colors by clicking paths \n ('g') Make all paths in a group the same color\n ('d') Toggle data cleaning\n ('r' & 'l') Rotate map\n ('f' & 'b') Zoom map forward/backward in 3D & 4D\n ('a') Animate paths";
 String infoMsg = "KEY CODES: \n ('s') Show/hide all paths\n ('c') Change individual movement colors by clicking paths \n ('g') Make all paths in a group the same color\n ('d') Toggle data cleaning\n ('r' & 'l') Rotate map\n ('f' & 'b') Zoom map forward/backward in 3D & 4D\n ('a') Animate paths";
 
 PFont font;
