@@ -119,11 +119,11 @@ Path processTable(Table GPS, String fileName, int student) {
     long time = 0;
     // Tests to make sure columns labeled correctly
     try {
-      // get values
-      time = tryParse(position.getString(time_Column));
-      lat = position.getFloat(lat_Column);
-      lng = position.getFloat(lng_Column);
-      alt = position.getFloat(alt_Column);
+      // get values from column positions corresponding to ViewRanger formatting
+      time = tryParse(position.getString(1)); // time
+      lat = position.getFloat(2); // latitude
+      lng = position.getFloat(3); // longitude
+      alt = position.getFloat(4); // altitude
     } 
     catch (Exception e) {
       println(fileName + "was not loaded. Please make sure column names are correct");

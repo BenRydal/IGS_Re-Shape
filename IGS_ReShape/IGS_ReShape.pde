@@ -28,7 +28,6 @@ import de.fhpotsdam.unfolding.data.*;
 List<Group> groups = new ArrayList(); // Holder for Groups/set of Path objects, a base group is created on progrm start up
 Group currGroup; // Current group of paths that is displayed
 List<MapLayer> mapLayers = new ArrayList(); // Holder for map images/may layers
-String lat_Column = "latitude", lng_Column = "longitude", alt_Column = "altitude (ft)", time_Column = "time"; // These names MUST match column names in data/CSV file
 String [] dateStringsToTest = {"yyyy-MM-dd HH:mm:ss", "MM/dd/yy HH:mm", "MM/dd/yyyy HH:mm"}; // Date stamp in data/CSV vile MUST match one of these date strings
 long unixMin = 0L, unixMax = 0L; // Values for min/max datestamps converted into Unix time 
 float altitudeMin = 0f, altitudeMax = 0f;
