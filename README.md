@@ -1,7 +1,7 @@
 # IGS_Re-Shape
+This software is a simplified version of the Interaction Geography Slicer (IGS) visualization tool that runs in Processing customized for the Re-Shape learning environment.
 
 ![repo](coverImage.png)
-This software is a simplified version of the Interaction Geography Slicer (IGS) visualization tool that runs in Processing customized for the Re-Shape learning environment.
 
 TO RUN THIS PROGRAM:
 
