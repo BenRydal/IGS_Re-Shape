@@ -46,7 +46,7 @@ void setMap() {
 
 void setGUI() {
   // Timeline
-  tickHeight = mapSpacing/4;
+  tickHeight = mapSpacing/3;
   yPosTimeScale = mapHeight + tickHeight;
   yPosTimeScaleTop = mapHeight - 2 * tickHeight;
   yPosTimeScaleBottom = mapHeight + 2 * tickHeight;

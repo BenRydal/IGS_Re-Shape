@@ -54,6 +54,8 @@ class Keys {
     textSize(lrgTextSize);
     float unixDisplayStampStart = map(currPixelTimeMin, timelineStart, timelineEnd, unixMin, unixMax); // gets you time/date stamp using max Unix value
     float unixDisplayStampEnd = map(currPixelTimeMax, timelineStart, timelineEnd, unixMin, unixMax); // gets you time/date stamp
+    float yPosFormattedDate = yPosTimeScale - tickHeight - mapSpacing/6;
+
 
     if (overRect(timelineStart, 0, timelineEnd, yPosGroupLablesBottom) || animateMode) {
       long setDisplayTime = 0L;
@@ -63,8 +65,8 @@ class Keys {
       date.setTime(setDisplayTime*1000);
       SimpleDateFormat displayDate = new SimpleDateFormat("EEE, h:mm a");
       String formattedDate = displayDate.format(date);
-      text(formattedDate, timeLineCenter, yPosTimeScale + 2.5 * tickHeight);
-    } else text("TIME", timeLineCenter, yPosTimeScale + 2.5 * tickHeight);
+      text(formattedDate, timeLineCenter, yPosFormattedDate);
+    } else text("TIME", timeLineCenter, yPosFormattedDate);
 
     // Start/End Date stamps
     Date dateStart = new Date ();
@@ -75,9 +77,9 @@ class Keys {
     String formattedDateStart = displayDate.format(dateStart);
     String formattedDateEnd = displayDate.format(dateEnd);
     textAlign(LEFT);
-    text(formattedDateStart, timelineStart + mapSpacing/6, yPosTimeScale - tickHeight - mapSpacing/6);
+    text(formattedDateStart, timelineStart + mapSpacing/6, yPosFormattedDate);
     textAlign(RIGHT);
-    text(formattedDateEnd, timelineEnd - mapSpacing/6, yPosTimeScale - tickHeight - mapSpacing/6);
+    text(formattedDateEnd, timelineEnd - mapSpacing/6, yPosFormattedDate);
     textAlign(LEFT); // reset
   }
 
