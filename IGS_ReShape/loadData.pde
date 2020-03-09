@@ -8,9 +8,10 @@ void loadData() {
 
 void setScales() {
   // ------ map scales ------
-  mapWidth = width/2.5;
-  mapSpacing = width/25;
-  mapHeight = height - 2 * mapSpacing;
+  mapSpacing = width/25; // sets general spacing variable
+  mapWidth = width/2; // sets mapWidth
+  mapHeight = height - 2.5 * mapSpacing; // setsMapHeight
+  startingHeightKeys = mapHeight + mapSpacing/2; // sets yPos for where keys are located
 
   // ------ time scales ------
   timelineLength = width - mapWidth - 1.5 * mapSpacing;
@@ -23,16 +24,18 @@ void setScales() {
 
   // ------ text scales ------
   if (width < 600 || height < 600) {
-    lrgTextSize = 13;
-    keyTextSize = 10;
+    lrgTextSize = 11;
+    keyTextSize = 8;
   } else {
     lrgTextSize = 18;
     keyTextSize = 15;
   }
 }
 
+boolean test = true;
+
 void setMap() {
-  map = new UnfoldingMap(this, -mapWidth, 0, mapWidth * 2, mapHeight, provider);
+  map = new UnfoldingMap(this, width/2-mapWidth, 0, mapWidth * 2, mapHeight, provider);
   MapUtils.createDefaultEventDispatcher(this, map);
   map.zoomToLevel(12);
   map.panTo(locationToStart);
@@ -47,15 +50,15 @@ void setMap() {
 void setGUI() {
   // Timeline
   tickHeight = mapSpacing/3;
-  yPosTimeScale = mapHeight + tickHeight;
-  yPosTimeScaleTop = mapHeight - 2 * tickHeight;
-  yPosTimeScaleBottom = mapHeight + 2 * tickHeight;
+  yPosTimeScale = startingHeightKeys + tickHeight;
+  yPosTimeScaleTop = startingHeightKeys - 2 * tickHeight;
+  yPosTimeScaleBottom = startingHeightKeys + 2 * tickHeight;
   // Map layer Keys
-  yPosMapLayerKeysTop = mapHeight;
-  yPosMapLayerKeysBottom = mapHeight + mapSpacing/2;
-  yPosMapLayerKeys = mapHeight + mapSpacing/3;
+  yPosMapLayerKeysTop = startingHeightKeys;
+  yPosMapLayerKeysBottom = startingHeightKeys + mapSpacing/2;
+  yPosMapLayerKeys = startingHeightKeys + mapSpacing/3;
   // Movement path keys
-  yPosPathKeysTop = mapHeight +  mapSpacing;
+  yPosPathKeysTop = startingHeightKeys +  mapSpacing;
   yPosPathKeysBottom = yPosPathKeysTop + mapSpacing/2;
   yPospathKeys = yPosPathKeysTop + mapSpacing/3;
   // Group Keys
@@ -69,8 +72,8 @@ void setGUI() {
 
   // Adaptable Spacing
   textSize(keyTextSize);
-  groupSpacing = textWidth("GROUP:      "); // spacing for group keys
-  pathKeySpacing = 2 * textWidth("Path"); // spacing for movement path keys
+  groupSpacing = textWidth(groupSpacingText); // spacing for group keys
+  pathKeySpacing = 2 * textWidth(pathKeySpacingText); // spacing for movement path keys
   pathDispNum = int(mapWidth/pathKeySpacing); // set display multiplier to fit within mapWidth
   layerDispNum = int((mapWidth/1.5)/pathKeySpacing); // set layer display multiplier to fit within mapWidth/2
 }
@@ -103,7 +106,7 @@ void loadPaths() {
     String fileName = f.getName();
     if (fileName.endsWith(".csv")) { // If it is a CSV file load data
       Table GPS = loadTable(filePath + fileName, "header");
-      Path temp = processTable(GPS, fileName, currGroup.group.size() + 1); // send to process table, + 1 to start path names in GUI at 1 not 0
+      Path temp = processTable(GPS, fileName, currGroup.group.size()); // send to process table
       if (temp.path.size() > 0) currGroup.group.add(temp); // make sure Table has data/headers before adding
     }
   }
@@ -113,23 +116,29 @@ void loadPaths() {
 
 // Tests and returns Path object from CSV file
 Path processTable(Table GPS, String fileName, int student) {
-  Path s = new Path("Path " + student, returnColorNumber(student - 1)); // Initialize path object to hold data, subtract one to pick correct color array
+  Path s = new Path("Path " + (student + 1), (student % colorShadeNumber)); // add 1 so labeled paths in GUI start at 1 not 0, 2nd parameter sets int for color selection
+  // Loop through table to get/create column name strings
+  int columnCount = GPS.getColumnCount();
+  ArrayList<String> columns = new ArrayList();
+  for (int i = 0; i < columnCount; i++) columns.add(GPS.getColumnTitle(i));
+  // loop through table rows and test 
   for (TableRow position : GPS.rows ()) {
-    float lat = 0, lng = 0, alt = 0;
+    float lat = 0, lng = 0, alt = 0; // set starting values for testing
     long time = 0;
-    // Tests to make sure columns labeled correctly
+    // loop over column names and for each row test if column name is correct and get value
     try {
-      // get values from column positions corresponding to ViewRanger formatting
-      time = tryParse(position.getString(1)); // time
-      lat = position.getFloat(2); // latitude
-      lng = position.getFloat(3); // longitude
-      alt = position.getFloat(4); // altitude
-    } 
+      for (String columnName : columns) {
+        if (columnName.startsWith("tim")) time = tryParse(position.getString(columnName));
+        else if (columnName.startsWith("lat")) lat = position.getFloat(columnName);
+        else if (columnName.startsWith("long")) lng = position.getFloat(columnName);
+        else if (columnName.startsWith("alt")) alt = position.getFloat(columnName);
+      }
+    }
     catch (Exception e) {
       println(fileName + "was not loaded. Please make sure column names are correct");
       break;
     } 
-    if (!Float.isNaN(lat) && !Float.isNaN(lng) && !Float.isNaN(alt) && time != 0L) { // If all data has respective values 
+    if (testDataValues(lat, lng, alt, time)) { // If all data has respective values 
       if (unixMin == 0) setStartingValues(time, alt, lat, lng); // if 1st point set starting values for comparison
       else compareValues(time, alt); // else compare values to previous min/max values
       // Add point to path
@@ -143,6 +152,12 @@ Path processTable(Table GPS, String fileName, int student) {
   return s; // return Path object
 }
 
+// Test if data is not starting values or NaN
+boolean testDataValues(float lat, float lng, float alt, long time) {
+  if (!Float.isNaN(lat) && lat != 0 && !Float.isNaN(lng) && lng != 0 && !Float.isNaN(alt) && alt != 0 && time != 0L) return true;
+  else return false;
+}
+
 // Converts date stamp to unix time based on local timezone
 long tryParse(String s) {
   List<String> formatStrings = Arrays.asList(dateStringsToTest); // Date formats to test
@@ -150,7 +165,7 @@ long tryParse(String s) {
     try {
       SimpleDateFormat sdf = new SimpleDateFormat(fs);
       sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-      return (sdf.parse(s).getTime()) / 1000L; // gets unix time in seconds and subtracts 18000 to account for GMT
+      return (sdf.parse(s).getTime()) / 1000L;
     } 
     catch (Exception e) {
       // println("Please check the date/time format of data");
@@ -174,12 +189,4 @@ void compareValues(long time, float alt) {
   else if (time > unixMax) unixMax = time;
   if (alt < altitudeMin) altitudeMin = alt; // altitude comparison
   else if (alt > altitudeMax) altitudeMax = alt;
-}
-
-int returnColorNumber(int num) {
-  if (num < colorShadeNumber) return num;
-  else if (num < (2 * colorShadeNumber)) return num - colorShadeNumber;
-  else if (num < (3 * colorShadeNumber)) return num - (2 * colorShadeNumber);
-  else if (num < (4 * colorShadeNumber)) return num - (3 * colorShadeNumber);
-  else return 0;
 }

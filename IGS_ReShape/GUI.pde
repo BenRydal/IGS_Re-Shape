@@ -20,6 +20,7 @@ void keyPressed() {
 }
 
 void mousePressed() { // only one handler is called, test method organizes respective handler in each sub class
+  if (startingMessage == true) startingMessage = false; 
   MouseHandler handle = new MouseHandler();
   if (!animateMode && overRect(timelineStart, yPosTimeScaleTop, timelineEnd, yPosTimeScaleBottom)) handle = new handleTimelineKeys();
   else if (overRect(0, yPosPathKeysTop, timelineStart, yPosPathKeysBottom)) handle = new handlePathKeys();
@@ -62,7 +63,7 @@ boolean overRect(float x, float y, float boxWidth, float boxHeight) {
   }
 }
 
-class MouseHandler { // base class
+class MouseHandler {
   void test() {
   }
 }
@@ -128,32 +129,51 @@ class handleDimensionKeys extends MouseHandler {
 
   void test() {
     textSize(lrgTextSize);  
-    if (overRect(width - textWidth("2D VIEW    3D VIEW    4D VIEW    "), yPosDimensionLablesTop, width - textWidth("3D VIEW    4D VIEW    "), yPosDimensionLablesBottom)) { 
+
+    if (overRect(width - textWidth(view_1 + view_2 + view_3 + view_4), yPosDimensionLablesTop, width - textWidth(view_2 + view_3 + view_4), yPosDimensionLablesBottom)) { 
+      map.move(width/2-mapWidth, 0);
+      if (display_2D) {
+        map.panRight();
+        map.panRight();
+      } 
+      display_1D = true;
+      display_2D = false;
+      display_3D = false;
+      display_4D = false;
+      rotation = 0;
+      translateY = 0;
+    } else if (overRect(width - textWidth(view_2 + view_3 + view_4), yPosDimensionLablesTop, width - textWidth(view_3 + view_4), yPosDimensionLablesBottom)) { 
       map.move(-mapWidth, 0);
-      if (display_3D || display_4D) {
+      if (display_1D) {
+        map.panLeft();
+        map.panLeft();
+      } else if (display_3D || display_4D) {
         map.panLeft();
         map.panLeft();
       }
+      display_1D = false;
       display_2D = true;
       display_3D = false;
       display_4D = false;
       rotation = 0;
       translateY = 0;
-    } else if (overRect(width - textWidth("3D VIEW    4D VIEW    "), yPosDimensionLablesTop, width - textWidth("4D VIEW    "), yPosDimensionLablesBottom)) {
+    } else if (overRect(width - textWidth(view_3 + view_4), yPosDimensionLablesTop, width - textWidth(view_4), yPosDimensionLablesBottom)) {
       map.move((width - 2*mapWidth)/2, -mapSpacing); // shift map to allow mouse handling on map in 3D
       if (display_2D) {
         map.panRight();
         map.panRight();
       }
+      display_1D = false;
       display_2D = false;
       display_3D = true;
       display_4D = false;
-    } else if (overRect(width - textWidth("4D VIEW    "), yPosDimensionLablesTop, width, yPosDimensionLablesBottom)) {
+    } else if (overRect(width - textWidth(view_4), yPosDimensionLablesTop, width, yPosDimensionLablesBottom)) {
       map.move(-mapWidth, -mapSpacing);
       if (display_2D) {
         map.panRight();
         map.panRight();
       }
+      display_1D = false;
       display_2D = false;
       display_3D = false;
       display_4D = true;
@@ -271,8 +291,13 @@ class handleMapKeys extends MouseHandler {
             // if it is rectified, reset all paramenters
             if (adjustingMode) adjustingMode = false;  // reset adjusting mode
             currLayer.geoRectified = !currLayer.geoRectified;
-            currLayer.rectifiedTopCorner = map.getLocation(mapWidth/2 - currLayer.image.width/2, mapHeight/2 - currLayer.image.height/2);
-            currLayer.rectifiedBottomCorner = map.getLocation(mapWidth/2 + currLayer.image.width/2, mapHeight/2 + currLayer.image.height/2);
+            if (display_1D) {
+              currLayer.rectifiedTopCorner = map.getLocation(width/2 - currLayer.image.width/2, mapHeight/2 - currLayer.image.height/2);
+              currLayer.rectifiedBottomCorner = map.getLocation(width/2 + currLayer.image.width/2, mapHeight/2 + currLayer.image.height/2);
+            } else if (display_2D) {
+              currLayer.rectifiedTopCorner = map.getLocation(mapWidth/2 - currLayer.image.width/2, mapHeight/2 - currLayer.image.height/2);
+              currLayer.rectifiedBottomCorner = map.getLocation(mapWidth/2 + currLayer.image.width/2, mapHeight/2 + currLayer.image.height/2);
+            }
           }
         }
       }

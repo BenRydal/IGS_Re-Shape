@@ -55,9 +55,14 @@ class Display { // Display class has 3 sub-classes that organize drawing in 2D, 
   // Draw map image scaled to screen
   void drawMapImage(MapLayer currLayer) {
     imageMode(CENTER); // set image mode, clip and tint for drawing the map
-    clip(0, mapHeight/2, 2 * mapWidth, mapHeight);
     tint(255, 128);
-    image(currLayer.image, mapWidth/2, mapHeight/2); // draw image at center of map
+    if (display_1D) {
+      clip(width/2, mapHeight/2, width, mapHeight);
+      image(currLayer.image, width/2, mapHeight/2); // draw image at center of map
+    } else if (display_2D) {
+      clip(0, mapHeight/2, 2 * mapWidth, mapHeight);
+      image(currLayer.image, mapWidth/2, mapHeight/2); // draw image at center of map
+    }
     noClip(); // reset all--very important for rest of program drawing
     noTint();
     imageMode(CORNER);
@@ -66,7 +71,8 @@ class Display { // Display class has 3 sub-classes that organize drawing in 2D, 
   // Draw map image scaled/rectified to digital map
   void drawRectifiedMapImage(MapLayer currLayer) {
     imageMode(CORNERS); // set image mode, clip and tint for drawing the map
-    clip(0, 0, mapWidth, mapHeight);
+    if (display_1D) clip(0, 0, width, mapHeight);
+    else if (display_2D) clip(0, 0, mapWidth, mapHeight);
     if (adjustingMode) { // Adjusting mode is additional mode for refining a rectified map image
       tint(255, 128);
       image(currLayer.image, currLayer.adjustingTopCorner.x, currLayer.adjustingTopCorner.y, currLayer.adjustingBottomCorner.x, currLayer.adjustingBottomCorner.y);
@@ -81,13 +87,23 @@ class Display { // Display class has 3 sub-classes that organize drawing in 2D, 
   }
 }
 
+class Display_1D extends Display {
+
+  void draw() {
+    map.draw();
+    super.updateMapImage();
+    super.setKeys();
+    if (!welcome) super.updateDrawData();
+  }
+}
+
 class Display_2D extends Display {
 
   void draw() {
     map.draw();
     super.updateMapImage();
     super.setKeys();
-    super.updateDrawData();
+    if (!welcome) super.updateDrawData();
     if (overRect(timelineStart, 0, timelineEnd, yPosTimeScale)) super.drawCursorSlices();
   }
 }
@@ -100,7 +116,7 @@ class Display_3D extends Display {
     translate(0, translateY, zoom);  
     rotateX(rotation);   
     map.draw();
-    super.updateDrawData();
+    if (!welcome) super.updateDrawData();
     if (overRect(timelineStart, 0, timelineEnd, yPosTimeScale)) super.drawCursorSlices();
     popMatrix();
     if (rotation < PI/2.5) rotation +=.03; // animation between modes
@@ -116,7 +132,7 @@ class Display_4D extends Display {
     translate(0, translateY, zoom);  
     rotateX(rotation);   
     map.draw(); 
-    super.updateDrawData();
+    if (!welcome) super.updateDrawData();
     if (overRect(timelineStart, 0, timelineEnd, yPosTimeScale)) super.drawCursorSlices();
     popMatrix();
     if (rotation < PI/2.5) rotation +=.03;  // animation between modes

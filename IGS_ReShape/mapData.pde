@@ -9,7 +9,7 @@ class DrawData {
     setLineStyle(s);
     resetBug();
     drawCurve(s, SPACE);
-    drawCurve(s, SPACETIME);
+    if (!display_1D) drawCurve(s, SPACETIME); // don't draw space-time for 1D view
     if (animateMode && bugAnimateCounter != 0) drawBug(s.path.get(bugAnimateCounter), s.shadeNumber);
     else if (bugPointToDraw != 0) drawBug(s.path.get(bugPointToDraw), s.shadeNumber); // draw single bug for each path
   }
@@ -29,7 +29,7 @@ class DrawData {
     bugAnimateCounter = 0; // Counter holds value to draw bug if in animate mode
   }
 
-  void drawCurve (Path s, int view) {   
+  void drawCurve (Path s, int view) {  
     boolean drawVertex = false; // Controls drawing of vertices for points and beginning/ending curves
     float priorTime = 0f;  // Holders for prior values of points for comparison
     ScreenPosition priorPos = new ScreenPosition(0, 0);
@@ -80,7 +80,7 @@ class DrawData {
 
     if (view == SPACE) { 
       xPos = pos.x;
-      if (display_2D || display_3D) zPos = 0;
+      if (display_1D || display_2D || display_3D) zPos = 0;
       else if (display_4D) zPos = altitudeInPixels;
     } else if (view == SPACETIME) {
       scaledTimeInPixels = map(timeInPixels, currPixelTimeMin, currPixelTimeMax, timelineStart, timelineEnd);
@@ -125,7 +125,10 @@ class DrawData {
   boolean overMap(ScreenPosition pos) {
     float mapXposLeft = 0f;
     float mapXPosRight = 0f;
-    if (display_2D) {
+    if (display_1D) {
+      mapXposLeft = width/2 - mapWidth;
+      mapXPosRight = width/2 + mapWidth;
+    } else if (display_2D) {
       mapXposLeft = 0;
       mapXPosRight = mapWidth;
     } else if (display_3D) {

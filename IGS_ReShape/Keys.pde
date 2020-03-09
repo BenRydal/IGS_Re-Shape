@@ -12,17 +12,14 @@ class Keys {
   }
 
   void drawInformationKeys() {
-    textAlign(CENTER);
+    textAlign(LEFT);
     fill(255);
     textSize(lrgTextSize);
-    if (overRect(width/2 - textWidth("Show Guide"), yPosDimensionLablesTop, width/2 + textWidth("Show Key Codes"), yPosDimensionLablesBottom)) drawInfoMsg();
-    else text("Show Key Codes", width/2, yPosDimensionLables);
-  }
-
-  void drawInfoMsg() {
-    fill(0);
-    textAlign(RIGHT);
-    text(infoMsg, width - mapSpacing, mapSpacing);
+    if (overRect(width - textWidth(infoLabel + view_1 + view_2 + view_3 + view_4), yPosDimensionLablesTop, width - textWidth(view_1 + view_2 + view_3 + view_4), yPosDimensionLablesBottom)) welcome = true;
+    else {
+      welcome = false;
+      text(infoLabel, width - textWidth(infoLabel + view_1 + view_2 + view_3 + view_4), yPosDimensionLables);
+    }
   }
 
   void drawTimeScale() {
@@ -37,7 +34,7 @@ class Keys {
     line(timelineStart, yPosTimeScale, timelineEnd, yPosTimeScale); // horizontal
     // Permanent lines at start/end of timeline
     stroke(250);
-    strokeWeight(5); 
+    strokeWeight(7); 
     line(timelineStart, yPosTimeScale - tickHeight, timelineStart, yPosTimeScale + tickHeight); 
     line(timelineEnd, yPosTimeScale - tickHeight, timelineEnd, yPosTimeScale + tickHeight);
     // Selector lines
@@ -185,12 +182,14 @@ class Keys {
   void drawDimensionKeys () {
     textSize(lrgTextSize);
     textAlign(LEFT);
+    fill(display_1D ? 255: backgroundColor);
+    text(view_1, width - textWidth(view_1 + view_2 + view_3 + view_4), yPosDimensionLables);
     fill(display_2D ? 255: backgroundColor);
-    text("2D VIEW", width - textWidth("2D VIEW    3D VIEW    4D VIEW    "), yPosDimensionLables);
+    text(view_2, width - textWidth(view_2 + view_3 + view_4), yPosDimensionLables);
     fill(display_3D ? 255: backgroundColor);
-    text("3D VIEW", width - textWidth("3D VIEW    4D VIEW    "), yPosDimensionLables);
+    text(view_3, width - textWidth(view_3 + view_4), yPosDimensionLables);
     fill(display_4D ? 255: backgroundColor);
-    text("4D VIEW", width - textWidth("4D VIEW    "), yPosDimensionLables);
+    text(view_4, width - textWidth(view_4), yPosDimensionLables);
   }
 
   void drawSpaceTimeCubeKeys() {
