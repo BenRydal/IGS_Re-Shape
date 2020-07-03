@@ -5,10 +5,21 @@ class Keys {
     drawPathKeys();
     drawGroupKeys();
     drawMapLayerKeys();
+    drawMapZoomKeys();
     drawDimensionKeys();
     drawInformationKeys();
     if (display_3D) drawSpaceTimeCubeKeys();
     if (display_4D) drawAltitudeKeys();
+  }
+
+  void drawMapZoomKeys() {
+    fill(255);
+    rect(mapSpacing/2, mapHeight-mapSpacing - mapSpacing/2, mapSpacing/2, mapSpacing);
+    textAlign(CENTER);
+    textSize(lrgTextSize);
+    fill(0);
+    text("+", mapSpacing/2 + mapSpacing/4, mapHeight-mapSpacing-mapSpacing/4.5);
+    text("-", mapSpacing/2 + mapSpacing/4, mapHeight-mapSpacing/1.5);
   }
 
   void drawInformationKeys() {

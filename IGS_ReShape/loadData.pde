@@ -32,8 +32,6 @@ void setScales() {
   }
 }
 
-boolean test = true;
-
 void setMap() {
   map = new UnfoldingMap(this, width/2-mapWidth, 0, mapWidth * 2, mapHeight, provider);
   MapUtils.createDefaultEventDispatcher(this, map);

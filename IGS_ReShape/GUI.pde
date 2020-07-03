@@ -27,6 +27,7 @@ void mousePressed() { // only one handler is called, test method organizes respe
   else if (overRect(0, yPosGroupLablesTop, width, yPosGroupLablesBottom)) handle = new handleGroupKeys();
   else if (overRect(0, yPosMapLayerKeysTop, timelineStart, yPosMapLayerKeysBottom)) handle = new handleMapKeys();
   else if (overRect(timelineStart, yPosDimensionLablesTop, width, yPosDimensionLablesBottom)) handle = new handleDimensionKeys();
+  else if (overRect(mapSpacing/2, mapHeight - (mapSpacing + mapSpacing/2), 2 * mapSpacing/2, mapHeight - mapSpacing/2)) handle = new handleMapZoomKeys();
   handle.test();
 }
 
@@ -349,5 +350,12 @@ class handleTimelineKeys extends MouseHandler {
         if (xPosLeftSelector != timelineStart) currPixelTimeMax = constrain(currPixelTimeMax + mouseChange, timelineStart, timelineEnd);
       }
     }
+  }
+}
+
+class handleMapZoomKeys extends MouseHandler {
+  void test() {
+    if (mouseY < mapHeight-mapSpacing) map.zoomToLevel(map.getZoomLevel() + 1); // zoom out
+    else if (mouseY > mapHeight-mapSpacing) map.zoomToLevel(map.getZoomLevel() - 1); // zoom in
   }
 }

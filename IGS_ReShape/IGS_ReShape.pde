@@ -25,10 +25,10 @@ import de.fhpotsdam.unfolding.providers.*;
 import de.fhpotsdam.unfolding.data.*;
 
 // ------ DATA ------
-List<Group> groups = new ArrayList(); // Holder for Groups/set of Path objects, a base group is created on progrm start up
+List<Group> groups = new ArrayList(); // Holder for Groups/set of Path objects, a base group is created on program start up
 Group currGroup; // Current group of paths that is displayed
 List<MapLayer> mapLayers = new ArrayList(); // Holder for map images/may layers
-String [] dateStringsToTest = {"yyyy-MM-dd HH:mm:ss", "MM/dd/yy HH:mm", "MM/dd/yyyy HH:mm"}; // Date stamp in data/CSV vile MUST match one of these date strings
+String [] dateStringsToTest = {"yyyy-MM-dd HH:mm:ss", "MM/dd/yy HH:mm", "MM/dd/yyyy HH:mm"}; // Date stamp in data/CSV file MUST match one of these date strings
 long unixMin = 0L, unixMax = 0L; // Values for min/max datestamps converted into Unix time 
 float altitudeMin = 0f, altitudeMax = 0f;
 float animateSpeed = 0.1f, animateTimeMin = 0f, animateTimeMax = 0f; // Path animation speed
