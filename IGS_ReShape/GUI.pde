@@ -28,6 +28,7 @@ void mousePressed() { // only one handler is called, test method organizes respe
   else if (overRect(0, yPosMapLayerKeysTop, timelineStart, yPosMapLayerKeysBottom)) handle = new handleMapKeys();
   else if (overRect(timelineStart, yPosDimensionLablesTop, width, yPosDimensionLablesBottom)) handle = new handleDimensionKeys();
   else if (overRect(mapSpacing/2, mapHeight - (mapSpacing + mapSpacing/2), 2 * mapSpacing/2, mapHeight - mapSpacing/2)) handle = new handleMapZoomKeys();
+  else if (overRect(mapSpacing/2, mapHeight, mapWidth/2, yPosTimeScaleBottom)) handle = new handleAddFileKeys();
   handle.test();
 }
 
@@ -357,5 +358,20 @@ class handleMapZoomKeys extends MouseHandler {
   void test() {
     if (mouseY < mapHeight-mapSpacing) map.zoomToLevel(map.getZoomLevel() + 1); // zoom out
     else if (mouseY > mapHeight-mapSpacing) map.zoomToLevel(map.getZoomLevel() - 1); // zoom in
+  }
+}
+
+class handleAddFileKeys extends MouseHandler {
+  void test() {
+    textSize(keyTextSize);
+    textAlign(LEFT);
+    float xPos = mapSpacing/2;
+    if (mouseX < xPos + textWidth("+ Path    ")) {
+      selectInput("Select a file to process:", "pathFileSelected");
+      noLoop(); // must stop loop to load file, then resume when loaded
+    } else if (mouseX < xPos + textWidth("+ Path    + Map Layer    ")) {
+      selectInput("Select a file to process:", "baseLayerFileSelected");
+      noLoop();
+    }
   }
 }

@@ -51,6 +51,7 @@ void setGUI() {
   yPosTimeScale = startingHeightKeys + tickHeight;
   yPosTimeScaleTop = startingHeightKeys - 2 * tickHeight;
   yPosTimeScaleBottom = startingHeightKeys + 2 * tickHeight;
+  yPosFormattedDate = yPosTimeScale - tickHeight - mapSpacing/6;
   // Map layer Keys
   yPosMapLayerKeysTop = startingHeightKeys;
   yPosMapLayerKeysBottom = startingHeightKeys + mapSpacing/2;
@@ -91,9 +92,33 @@ void loadBaseLayers() {
       layer.adjustingTopCorner = new ScreenPosition(0, 0);
       layer.adjustingBottomCorner = new ScreenPosition(0, 0);
       mapLayers.add(layer);
-    }
+    } else println("Error loading file, please make sure you have selected a .png, .jpg or .GIF file");
   }
 } 
+
+// Test image file, load image and add to map layers array if properly formatted image file
+void baseLayerFileSelected(File selection) {
+  if (selection == null) {
+    println("Window was closed or the user hit cancel.");
+    loop();
+  } else {
+    println("User selected " + selection.getAbsolutePath());
+    String fileName = selection.getAbsolutePath();
+    if (fileName.endsWith(".png") || fileName.endsWith(".jpg") || fileName.endsWith(".GIF")) { // If it is a CSV file load data
+      PImage image = requestImage(fileName);
+      MapLayer layer = new MapLayer();
+      layer.image = image;
+      layer.isActive = false;
+      layer.geoRectified = false;
+      layer.rectifiedTopCorner = new Location(0, 0);
+      layer.rectifiedBottomCorner = new Location(0, 0);
+      layer.adjustingTopCorner = new ScreenPosition(0, 0);
+      layer.adjustingBottomCorner = new ScreenPosition(0, 0);
+      mapLayers.add(layer);
+    } else println("Error loading file, please make sure you have selected a .png, .jpg or .GIF file");
+    loop();
+  }
+}
 
 // Loads all files in tracks directory and organizes for data processing
 void loadPaths() {  
@@ -108,8 +133,33 @@ void loadPaths() {
       if (temp.path.size() > 0) currGroup.group.add(temp); // make sure Table has data/headers before adding
     }
   }
-  if (currGroup.group.size() > 0)  groups.add(currGroup); // make sure group has data before adding
-  else println("No files were loaded, please make sure table columns and dates are properly formatted");
+  // if (currGroup.group.size() > 0)  groups.add(currGroup); // make sure group has data before adding
+  // else println("No files were loaded, please make sure table columns and dates are properly formatted");
+  groups.add(currGroup);
+  if (currGroup.group.size() == 0)  println("No files were loaded, please make sure table columns and dates are properly formatted");
+}
+
+void pathFileSelected(File selection) {
+  if (selection == null) {
+    println("Window was closed or the user hit cancel.");
+    loop();
+  } else {
+    // send to function to test/load data and add to paths
+    println("User selected " + selection.getAbsolutePath());
+    String fileName = selection.getAbsolutePath();
+    if (fileName.endsWith(".csv")) { // If it is a CSV file load data
+      Table GPS = loadTable(fileName, "header");
+      Path temp = processTable(GPS, fileName, currGroup.group.size()); // send to process table
+      // Pan to 1st location and add to currGroup if file has data
+      if (temp.path.size() > 0) {
+        Point point = temp.path.get(1); // get 1st point to pan to location of path
+        temp.isActive = true;
+        map.panTo(point.location); // pan map to location
+        currGroup.group.add(temp);
+      } else println("Error loading file, please make sure table columns and dates are properly formatted");
+    } else println("Error loading file, please make sure table columns and dates are properly formatted");
+    loop();
+  }
 }
 
 // Tests and returns Path object from CSV file

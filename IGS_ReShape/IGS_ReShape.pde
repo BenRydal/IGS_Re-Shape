@@ -58,7 +58,7 @@ PImage welcomeScreen;
 int welcomeAnimation = 0;  // Controls fading for welcome screen
 boolean display_1D = true, display_2D = false, display_3D = false, display_4D = false;  // 4 Views
 boolean lockedLeft = false, lockedRight = false, lockedMiddle = false, groupPathsMode = false, selectAllPathsMode = false, adjustingMode = false, animateMode = false, changeColorMode = false, cleanData = true;
-float startingHeightKeys, yPosTimeScale, yPosTimeScaleTop, yPosTimeScaleBottom, timeLineCenter, yPosDimensionLables, yPosDimensionLablesTop, yPosDimensionLablesBottom, yPosMapLayerKeys, yPosMapLayerKeysTop, yPosMapLayerKeysBottom, yPospathKeys, yPosPathKeysTop, yPosPathKeysBottom, yPosGroupLables, yPosGroupLablesTop, yPosGroupLablesBottom, groupSpacing, pathKeySpacing;
+float startingHeightKeys, yPosTimeScale, yPosTimeScaleTop, yPosTimeScaleBottom, timeLineCenter, yPosDimensionLables, yPosDimensionLablesTop, yPosDimensionLablesBottom, yPosMapLayerKeys, yPosMapLayerKeysTop, yPosMapLayerKeysBottom, yPospathKeys, yPosPathKeysTop, yPosPathKeysBottom, yPosGroupLables, yPosGroupLablesTop, yPosGroupLablesBottom, groupSpacing, pathKeySpacing, yPosFormattedDate;
 float rotation = 0f, translateY = 0f; // For switching from 2D to 3D views
 
 // ------ COLORS ------

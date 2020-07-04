@@ -5,6 +5,7 @@ class Keys {
     drawPathKeys();
     drawGroupKeys();
     drawMapLayerKeys();
+    drawFileAddKeys();
     drawMapZoomKeys();
     drawDimensionKeys();
     drawInformationKeys();
@@ -62,8 +63,6 @@ class Keys {
     textSize(lrgTextSize);
     float unixDisplayStampStart = map(currPixelTimeMin, timelineStart, timelineEnd, unixMin, unixMax); // gets you time/date stamp using max Unix value
     float unixDisplayStampEnd = map(currPixelTimeMax, timelineStart, timelineEnd, unixMin, unixMax); // gets you time/date stamp
-    float yPosFormattedDate = yPosTimeScale - tickHeight - mapSpacing/6;
-
 
     if (overRect(timelineStart, 0, timelineEnd, yPosGroupLablesBottom) || animateMode) {
       long setDisplayTime = 0L;
@@ -155,6 +154,17 @@ class Keys {
     textSize(1.5 * lrgTextSize);
     text(" + ", xPos + groupSpacing/4, yPosGroupLables);
     text(" - ", xPos + groupSpacing/2 + groupSpacing/4, yPosGroupLables);
+  }
+
+// add map pan to
+  void drawFileAddKeys() {
+    fill(255);
+    stroke(255);
+    textSize(keyTextSize);
+    textAlign(LEFT);
+    float xPos = mapSpacing/2;
+    text("+ Path", xPos, yPosFormattedDate);
+    text("+ Map Layer", xPos + mapSpacing, yPosFormattedDate);
   }
 
   void drawMapLayerKeys() {
