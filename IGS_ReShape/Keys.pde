@@ -156,15 +156,15 @@ class Keys {
     text(" - ", xPos + groupSpacing/2 + groupSpacing/4, yPosGroupLables);
   }
 
-// add map pan to
+  // add map pan to
   void drawFileAddKeys() {
     fill(255);
     stroke(255);
     textSize(keyTextSize);
     textAlign(LEFT);
     float xPos = mapSpacing/2;
-    text("+ Path", xPos, yPosFormattedDate);
-    text("+ Map Layer", xPos + mapSpacing, yPosFormattedDate);
+    text("+ PATH", xPos, yPosFormattedDate);
+    text("+ MAP LAYER", xPos + textWidth("+ PATH    "), yPosFormattedDate);
   }
 
   void drawMapLayerKeys() {
@@ -193,11 +193,23 @@ class Keys {
     }
     fill (255);
     text(">", xPos, yPosMapLayerKeys);
-
+    // Rectify/Adjust
     fill(layerIsRectified ? 255: 50); // Georectify key
     text("Rectify", xPos + pathKeySpacing/2, yPosMapLayerKeys);
     fill(layerIsAdjusted ? 255: 50); // Georectify key
     text("Adjust", xPos + pathKeySpacing + textWidth("Rectify"), yPosMapLayerKeys);
+    // Map Opacity Scrollbar Keys
+    xPos += (pathKeySpacing/2 + pathKeySpacing + textWidth("AdjustRectify"));
+    float opacityLineLength = textWidth("Transparency");
+    // set opacity xPos positions for GUI methods
+    mapOpacityCirXPos = map(mapOpacityLevel, 0, 255, xPos, xPos + opacityLineLength);
+    mapOpacityXPosStart = xPos;
+    mapOpacityXPosEnd = xPos + opacityLineLength;
+    strokeWeight(2);
+    fill(255);
+    line(mapOpacityXPosStart, yPosMapLayerKeys, mapOpacityXPosEnd, yPosMapLayerKeys);
+    text("Transparency", xPos, yPosMapLayerKeys - tickHeight);
+    ellipse(mapOpacityCirXPos, yPosMapLayerKeys, mapOpacityCirSize, mapOpacityCirSize);
   }
 
   void drawDimensionKeys () {

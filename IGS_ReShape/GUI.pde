@@ -38,6 +38,9 @@ void mouseDragged() {
     if (lockedLeft || lockedRight || lockedMiddle) handle.test();
     else if (overRect(timelineStart, yPosTimeScaleTop, timelineEnd, yPosTimeScaleBottom)) handle.test();
   }
+  // Map opacity scrollbar
+  float valueToMap = constrain(mouseX, mapOpacityXPosStart, mapOpacityXPosEnd);
+  if (overCircle(mapOpacityCirXPos, yPosMapLayerKeys, mapOpacityCirSize*2)) mapOpacityLevel = map(valueToMap, mapOpacityXPosStart, mapOpacityXPosEnd, 0, 255);
 }
 
 void mouseReleased() {
@@ -366,10 +369,10 @@ class handleAddFileKeys extends MouseHandler {
     textSize(keyTextSize);
     textAlign(LEFT);
     float xPos = mapSpacing/2;
-    if (mouseX < xPos + textWidth("+ Path    ")) {
+    if (mouseX < xPos + textWidth("+ PATH    ")) {
       selectInput("Select a file to process:", "pathFileSelected");
       noLoop(); // must stop loop to load file, then resume when loaded
-    } else if (mouseX < xPos + textWidth("+ Path    + Map Layer    ")) {
+    } else if (mouseX < xPos + textWidth("+ PATH    + MAP LAYER    ")) {
       selectInput("Select a file to process:", "baseLayerFileSelected");
       noLoop();
     }

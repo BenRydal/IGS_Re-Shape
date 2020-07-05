@@ -60,6 +60,7 @@ boolean display_1D = true, display_2D = false, display_3D = false, display_4D = 
 boolean lockedLeft = false, lockedRight = false, lockedMiddle = false, groupPathsMode = false, selectAllPathsMode = false, adjustingMode = false, animateMode = false, changeColorMode = false, cleanData = true;
 float startingHeightKeys, yPosTimeScale, yPosTimeScaleTop, yPosTimeScaleBottom, timeLineCenter, yPosDimensionLables, yPosDimensionLablesTop, yPosDimensionLablesBottom, yPosMapLayerKeys, yPosMapLayerKeysTop, yPosMapLayerKeysBottom, yPospathKeys, yPosPathKeysTop, yPosPathKeysBottom, yPosGroupLables, yPosGroupLablesTop, yPosGroupLablesBottom, groupSpacing, pathKeySpacing, yPosFormattedDate;
 float rotation = 0f, translateY = 0f; // For switching from 2D to 3D views
+float mapOpacityLevel = 128, mapOpacityCirSize = 10, mapOpacityCirXPos = 0, mapOpacityXPosStart = 0, mapOpacityXPosEnd = 0; // opacity scrollbar
 
 // ------ COLORS ------
 int backgroundKeys = 33, backgroundColor = 150, groupColor = 80, colorShadeNumber = 11;  // Number of path colors

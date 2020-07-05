@@ -55,7 +55,7 @@ class Display { // Display class has 3 sub-classes that organize drawing in 2D, 
   // Draw map image scaled to screen
   void drawMapImage(MapLayer currLayer) {
     imageMode(CENTER); // set image mode, clip and tint for drawing the map
-    tint(255, 128);
+    tint(255, mapOpacityLevel); // tint at level adjusted in GUI
     if (display_1D) {
       clip(width/2, mapHeight/2, width, mapHeight);
       image(currLayer.image, width/2, mapHeight/2); // draw image at center of map
@@ -74,7 +74,7 @@ class Display { // Display class has 3 sub-classes that organize drawing in 2D, 
     if (display_1D) clip(0, 0, width, mapHeight);
     else if (display_2D) clip(0, 0, mapWidth, mapHeight);
     if (adjustingMode) { // Adjusting mode is additional mode for refining a rectified map image
-      tint(255, 128);
+      tint(255, mapOpacityLevel); // tint at level adjusted in GUI
       image(currLayer.image, currLayer.adjustingTopCorner.x, currLayer.adjustingTopCorner.y, currLayer.adjustingBottomCorner.x, currLayer.adjustingBottomCorner.y);
       noTint(); // reset
     } else {
