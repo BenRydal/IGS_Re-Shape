@@ -23,7 +23,9 @@ class Display { // Display class has 3 sub-classes that organize drawing in 2D, 
     altitudeMax = 0f; 
 
     // Loop through all points in each path if showing and either use set starting values or compare values methods
-    for (Path s : currGroup.group) {
+    // Don't use shorthand for loop, due to how selectInput works in Processing it can throw concurrentMod error  
+    for (int j = 0; j < currGroup.group.size(); j++) {
+      Path s = currGroup.group.get(j); 
       if (s.isActive) {
         for (int i = 0; i <= s.path.size() -1; i++) {
           Point point = s.path.get(i); 
