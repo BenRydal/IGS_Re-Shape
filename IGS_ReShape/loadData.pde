@@ -100,7 +100,6 @@ void loadBaseLayers() {
 void baseLayerFileSelected(File selection) {
   if (selection == null) {
     println("Window was closed or the user hit cancel.");
-    loop();
   } else {
     println("User selected " + selection.getAbsolutePath());
     String fileName = selection.getAbsolutePath();
@@ -116,8 +115,8 @@ void baseLayerFileSelected(File selection) {
       layer.adjustingBottomCorner = new ScreenPosition(0, 0);
       mapLayers.add(layer);
     } else println("Error loading file, please make sure you have selected a .png, .jpg or .GIF file");
-    loop();
   }
+  loop(); // resume program
 }
 
 // Loads all files in tracks directory and organizes for data processing
@@ -142,7 +141,6 @@ void loadPaths() {
 void pathFileSelected(File selection) {
   if (selection == null) {
     println("Window was closed or the user hit cancel.");
-    loop();
   } else {
     // send to function to test/load data and add to paths
     println("User selected " + selection.getAbsolutePath());
@@ -154,12 +152,12 @@ void pathFileSelected(File selection) {
       if (temp.path.size() > 0) {
         Point point = temp.path.get(1); // get 1st point to pan to location of path
         temp.isActive = true;
-        map.panTo(point.location); // pan map to location
         currGroup.group.add(temp);
+        map.panTo(point.location); // pan map to location
       } else println("Error loading file, please make sure table columns and dates are properly formatted");
     } else println("Error loading file, please make sure table columns and dates are properly formatted");
-    loop();
   }
+  loop(); // resume program
 }
 
 // Tests and returns Path object from CSV file

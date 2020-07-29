@@ -54,6 +54,7 @@ int lrgTextSize, keyTextSize;
 int dispMult = 0, mapLayerDispMult = 0, pathDispNum, layerDispNum;  // Display multipliers for GUI
 boolean startingMessage = true; // Controls welcome message showing on program start up
 boolean welcome = true; // Controls welcome message/information on hover
+boolean reScaleValues = false; // Controls dynamic data scaling for paths
 PImage welcomeScreen;
 int welcomeAnimation = 0;  // Controls fading for welcome screen
 boolean display_1D = true, display_2D = false, display_3D = false, display_4D = false;  // 4 Views

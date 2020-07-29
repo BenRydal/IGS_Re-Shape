@@ -76,6 +76,7 @@ class MouseHandler {
 class handleGroupKeys extends MouseHandler {
 
   void test() {
+    reScaleValues = true; // controls rescaling method later in program
     float xPosToTest = groupSpacing/2; // Starting xPosition, each function builds/increments on this xPosition to test all buttons/keys
     xPosToTest = handleGroupTab(xPosToTest);
     xPosToTest = handleAddTab(xPosToTest);
@@ -189,6 +190,7 @@ class handleDimensionKeys extends MouseHandler {
 class handlePathKeys extends MouseHandler {
   // For every group that exists in 'groups', change the active group and current student list when clicked.
   void test() {
+    reScaleValues = true; // controls rescaling method later in program
     float xPosToTest = mapSpacing/2; // 
     xPosToTest = handleLeftArrow(xPosToTest);
     xPosToTest = handlePaths(xPosToTest);
@@ -369,12 +371,13 @@ class handleAddFileKeys extends MouseHandler {
     textSize(keyTextSize);
     textAlign(LEFT);
     float xPos = mapSpacing/2;
+    // Load Paths or Base Layers
     if (mouseX < xPos + textWidth("+ PATH    ")) {
-      selectInput("Select a file to process:", "pathFileSelected");
-      noLoop(); // must stop loop to load file, then resume when loaded
-    } else if (mouseX < xPos + textWidth("+ PATH    + MAP LAYER    ")) {
-      selectInput("Select a file to process:", "baseLayerFileSelected");
       noLoop();
+      selectInput("Select a file to process:", "pathFileSelected");
+    } else if (mouseX < xPos + textWidth("+ PATH    + MAP LAYER    ")) {
+      noLoop();
+      selectInput("Select a file to process:", "baseLayerFileSelected");
     }
   }
 }
