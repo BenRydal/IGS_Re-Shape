@@ -20,7 +20,7 @@ void setScales() {
   currPixelTimeMin = timelineStart; // set to beginning/end of timeline to start
   currPixelTimeMax = timelineEnd;
   timeLineCenter = timelineStart + timelineLength/2;
-  zoom = -int(width-mapWidth);
+  zoom = -int(width-mapWidth/1.5);
 
   // ------ text scales ------
   if (width < 600 || height < 600) {
@@ -33,7 +33,7 @@ void setScales() {
 }
 
 void setMap() {
-  map = new UnfoldingMap(this, width/2-mapWidth, 0, mapWidth * 2, mapHeight, provider);
+  map = new UnfoldingMap(this, 0, 0, mapWidth * 2, mapHeight, provider);
   MapUtils.createDefaultEventDispatcher(this, map);
   map.zoomToLevel(12);
   map.panTo(locationToStart);

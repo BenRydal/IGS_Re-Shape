@@ -164,7 +164,7 @@ class handleDimensionKeys extends MouseHandler {
       rotation = 0;
       translateY = 0;
     } else if (overRect(width - textWidth(view_3 + view_4), yPosDimensionLablesTop, width - textWidth(view_4), yPosDimensionLablesBottom)) {
-      map.move((width - 2*mapWidth)/2, -mapSpacing); // shift map to allow mouse handling on map in 3D
+      map.move((width - 2*mapWidth)/2, 0); // shift map to allow mouse handling on map in 3D
       if (display_2D) {
         map.panRight();
         map.panRight();
@@ -174,7 +174,7 @@ class handleDimensionKeys extends MouseHandler {
       display_3D = true;
       display_4D = false;
     } else if (overRect(width - textWidth(view_4), yPosDimensionLablesTop, width, yPosDimensionLablesBottom)) {
-      map.move(-mapWidth, -mapSpacing);
+      map.move(-mapWidth, 0);
       if (display_2D) {
         map.panRight();
         map.panRight();

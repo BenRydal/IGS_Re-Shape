@@ -126,14 +126,14 @@ class DrawData {
     float mapXposLeft = 0f;
     float mapXPosRight = 0f;
     if (display_1D) {
-      mapXposLeft = width/2 - mapWidth;
-      mapXPosRight = width/2 + mapWidth;
+      mapXposLeft = 0;
+      mapXPosRight = width;
     } else if (display_2D) {
       mapXposLeft = 0;
       mapXPosRight = mapWidth;
     } else if (display_3D) {
-      mapXposLeft = (width - 2*mapWidth)/2;
-      mapXPosRight = 2 * mapWidth;
+      mapXposLeft = 0;
+      mapXPosRight = width;
     } else if (display_4D) {
       mapXposLeft = -mapWidth;
       mapXPosRight = mapWidth;
