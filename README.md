@@ -1,5 +1,5 @@
 # IGS_Re-Shape
-This software is a simplified version of the Interaction Geography Slicer (IGS) visualization tool that runs in Processing customized for the Re-Shape learning environment.
+This software is a simplified version of the Interaction Geography Slicer (IGS) visualization tool that allows you to dynamically visualize your physical movement data over different thematic maps.
 
 ![repo](coverImage.png)
 
@@ -9,7 +9,7 @@ TO RUN THIS PROGRAM:
 
 2) Place the folder titled "Unfolding" included in this repository within your processing "libraries" folder (located within the Processing folder on your computer). Unfolding is a wonderful mapping Library developed by Till Nagel & contributers (see credits below).
 
-3) If you have not done so already, visit this link to understand how to collect, format, and load data into this program: https://www.maselfs.org
+3) If you have not done so already, visit this link to understand how to collect, format, and load data into this program: https://www.maselfs.org/activity-4
 
 4) Open and run any file in the IGS_ReShape folder in this repository in Processing.
 
