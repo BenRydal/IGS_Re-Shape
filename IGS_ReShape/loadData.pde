@@ -150,7 +150,7 @@ void pathFileSelected(File selection) {
       Path temp = processTable(GPS, fileName, currGroup.group.size()); // send to process table
       // Pan to 1st location and add to currGroup if file has data
       if (temp.path.size() > 0) {
-        Point point = temp.path.get(1); // get 1st point to pan to location of path
+        Point point = temp.path.get(0); // get 1st point to pan to location of path
         temp.isActive = true;
         currGroup.group.add(temp);
         map.panTo(point.location); // pan map to location
